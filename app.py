@@ -208,7 +208,9 @@ async def recommend_jobs_real(request: JobRecommendationRequest):
             raise HTTPException(status_code=500, detail="Firecrawl API key not configured")
         
         # Use the actual job agent logic
-        from job_agent import firecrawl_api_key, client
+        firecrawl_api_key = os.getenv("FIRECRAWL_API_KEY")
+        from openai import OpenAI
+        client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         
         # Import FirecrawlApp (assuming it's available)
         try:
